@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*") // Allows HTML frontend to call API
 @RestController
 @RequestMapping("/api/menu")
 public class MenuController {
