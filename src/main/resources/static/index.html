@@ -8,22 +8,22 @@
         * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #f4f6f9; margin: 0; padding: 20px; color: #333; }
         h1 { text-align: center; color: #2c3e50; }
-        .container { display: flex; gap: 20px; max-width: 1200px; margin: 0 auto; flex-wrap: wrap; }
-        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); flex: 1; min-width: 300px; }
+        .grid-container { display: grid; grid-template-columns: 1fr 2fr; gap: 20px; max-width: 1200px; margin: 0 auto; }
+        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 20px; }
         h2 { border-bottom: 2px solid #3498db; padding-bottom: 8px; color: #3498db; margin-top: 0; }
         
-        /* Form Styling */
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-group { margin-bottom: 12px; }
+        label { display: block; margin-bottom: 4px; font-weight: bold; font-size: 14px; }
         input[type="text"], input[type="number"], select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
         button { background-color: #2ecc71; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; width: 100%; }
         button:hover { background-color: #27ae60; }
-        .btn-danger { background-color: #e74c3c; width: auto; padding: 5px 10px; font-size: 12px; }
+        .btn-order { background-color: #3498db; }
+        .btn-order:hover { background-color: #2980b9; }
+        .btn-danger { background-color: #e74c3c; width: auto; padding: 4px 8px; font-size: 12px; }
         .btn-danger:hover { background-color: #c0392b; }
 
-        /* Table Styling */
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; font-size: 14px; }
         th { background-color: #f8f9fa; }
         .badge { padding: 4px 8px; border-radius: 4px; font-size: 12px; color: white; display: inline-block; }
         .badge-success { background-color: #2ecc71; }
@@ -34,95 +34,143 @@
 
     <h1>Smart-Dine: Menu & Order Management</h1>
 
-    <div class="container">
-        <!-- Section 1: Add New Menu Item -->
-        <div class="card">
-            <h2>Add Menu Item</h2>
-            <form id="menuForm">
-                <div class="form-group">
-                    <label for="itemName">Item Name</label>
-                    <input type="text" id="itemName" required placeholder="e.g. Chicken Burger">
-                </div>
-                <div class="form-group">
-                    <label for="itemCategory">Category</label>
-                    <input type="text" id="itemCategory" required placeholder="e.g. Mains / Beverages">
-                </div>
-                <div class="form-group">
-                    <label for="itemPrice">Price (LKR)</label>
-                    <input type="number" step="0.01" id="itemPrice">
-                </div>
-                <div class="form-group">
-                    <label for="itemAvailable">Availability</label>
-                    <select id="itemAvailable">
-                        <option value="true">Available</option>
-                        <option value="false">Out of Stock</option>
-                    </select>
-                </div>
-                <button type="submit">Save Menu Item</button>
-            </form>
+    <div class="grid-container">
+        <!-- LEFT COLUMN: FORMS -->
+        <div>
+            <!-- Form 1: Add Menu Item -->
+            <div class="card">
+                <h2>Add Menu Item</h2>
+                <form id="menuForm">
+                    <div class="form-group">
+                        <label for="itemName">Item Name</label>
+                        <input type="text" id="itemName" required placeholder="e.g. Chicken Burger">
+                    </div>
+                    <div class="form-group">
+                        <label for="itemCategory">Category</label>
+                        <input type="text" id="itemCategory" required placeholder="e.g. Mains / Drinks">
+                    </div>
+                    <div class="form-group">
+                        <label for="itemPrice">Price (LKR)</label>
+                        <input type="number" step="0.01" id="itemPrice" required placeholder="1000">
+                    </div>
+                    <div class="form-group">
+                        <label for="itemAvailable">Availability</label>
+                        <select id="itemAvailable">
+                            <option value="true">Available</option>
+                            <option value="false">Out of Stock</option>
+                        </select>
+                    </div>
+                    <button type="submit">Save Menu Item</button>
+                </form>
+            </div>
+
+            <!-- Form 2: Place New Order -->
+            <div class="card">
+                <h2>Place New Order</h2>
+                <form id="orderForm">
+                    <div class="form-group">
+                        <label for="tableNumber">Table Number</label>
+                        <input type="number" id="tableNumber" required placeholder="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="selectMenuItem">Select Menu Item</label>
+                        <select id="selectMenuItem" required>
+                            <!-- Dynamically populated from menu items -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="orderQuantity">Quantity</label>
+                        <input type="number" id="orderQuantity" min="1" value="1" required>
+                    </div>
+                    <button type="submit" class="btn-order">Create Order</button>
+                </form>
+            </div>
         </div>
 
-        <!-- Section 2: Menu Items List -->
-        <div class="card" style="flex: 2;">
-            <h2>Current Menu</h2>
-            <table id="menuTable">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Price</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Populated dynamically via JavaScript -->
-                </tbody>
-            </table>
+        <!-- RIGHT COLUMN: TABLES -->
+        <div>
+            <!-- Table 1: Current Menu -->
+            <div class="card">
+                <h2>Current Menu</h2>
+                <table id="menuTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <!-- Table 2: Active Orders -->
+            <div class="card">
+                <h2>Active Orders</h2>
+                <table id="ordersTable">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Table No</th>
+                            <th>Item Name</th>
+                            <th>Quantity</th>
+                            <th>Total Price</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
         </div>
     </div>
 
     <script>
-        // Adjust the port below if your server runs on 8080 or 8081
-        const API_URL = 'http://localhost:8081/api/menu';
+        const BASE_URL = 'http://localhost:8081/api';
 
-        // Load Menu Items on Page Load
-        document.addEventListener('DOMContentLoaded', fetchMenuItems);
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchMenuItems();
+            fetchOrders();
+        });
 
-        // Fetch all menu items from Spring Boot REST API
+        // --- MENU LOGIC ---
         function fetchMenuItems() {
-            fetch(API_URL)
-                .then(response => response.json())
+            fetch(`${BASE_URL}/menu`)
+                .then(res => res.json())
                 .then(data => {
                     const tbody = document.querySelector('#menuTable tbody');
+                    const select = document.getElementById('selectMenuItem');
                     tbody.innerHTML = '';
+                    select.innerHTML = '';
+
                     data.forEach(item => {
+                        // Render Menu Table Row
                         const row = document.createElement('tr');
                         row.innerHTML = `
                             <td>${item.id}</td>
                             <td>${item.name}</td>
                             <td>${item.category}</td>
                             <td>${item.price.toFixed(2)}</td>
-                            <td>
-                                <span class="badge ${item.available ? 'badge-success' : 'badge-warning'}">
-                                    ${item.available ? 'Available' : 'Out of Stock'}
-                                </span>
-                            </td>
-                            <td>
-                                <button class="btn-danger" onclick="deleteMenuItem(${item.id})">Delete</button>
-                            </td>
+                            <td><span class="badge ${item.available ? 'badge-success' : 'badge-warning'}">${item.available ? 'Available' : 'Out of Stock'}</span></td>
+                            <td><button class="btn-danger" onclick="deleteMenuItem(${item.id})">Delete</button></td>
                         `;
                         tbody.appendChild(row);
+
+                        // Render Option in Order Dropdown
+                        if(item.available) {
+                            const opt = document.createElement('option');
+                            opt.value = item.name;
+                            opt.textContent = `${item.name} (LKR ${item.price})`;
+                            select.appendChild(opt);
+                        }
                     });
-                })
-                .catch(error => console.error('Error fetching menu:', error));
+                });
         }
 
-        // Add a new menu item via POST request
-        document.getElementById('menuForm').addEventListener('submit', function (e) {
+        document.getElementById('menuForm').addEventListener('submit', (e) => {
             e.preventDefault();
-            
             const newItem = {
                 name: document.getElementById('itemName').value,
                 category: document.getElementById('itemCategory').value,
@@ -130,27 +178,63 @@
                 available: document.getElementById('itemAvailable').value === 'true'
             };
 
-            fetch(API_URL, {
+            fetch(`${BASE_URL}/menu`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(newItem)
-            })
-            .then(response => response.json())
-            .then(() => {
+            }).then(() => {
                 document.getElementById('menuForm').reset();
-                fetchMenuItems(); // Refresh list
-            })
-            .catch(error => console.error('Error adding item:', error));
+                fetchMenuItems();
+            });
         });
 
-        // Delete a menu item via DELETE request
         function deleteMenuItem(id) {
-            if (confirm('Are you sure you want to delete this menu item?')) {
-                fetch(`${API_URL}/${id}`, { method: 'DELETE' })
-                    .then(() => fetchMenuItems())
-                    .catch(error => console.error('Error deleting item:', error));
+            if(confirm('Delete item?')) {
+                fetch(`${BASE_URL}/menu/${id}`, { method: 'DELETE' }).then(() => fetchMenuItems());
             }
         }
+
+        // --- ORDER LOGIC ---
+        function fetchOrders() {
+            fetch(`${BASE_URL}/orders`)
+                .then(res => res.json())
+                .then(data => {
+                    const tbody = document.querySelector('#ordersTable tbody');
+                    tbody.innerHTML = '';
+                    data.forEach(order => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${order.id}</td>
+                            <td>${order.tableNumber}</td>
+                            <td>${order.itemName || order.menuItemName}</td>
+                            <td>${order.quantity}</td>
+                            <td>${(order.totalPrice || 0).toFixed(2)}</td>
+                            <td><span class="badge badge-warning">${order.status || 'PENDING'}</span></td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                })
+                .catch(() => console.log("Orders endpoint pending backend load"));
+        }
+
+        document.getElementById('orderForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const newOrder = {
+                tableNumber: parseInt(document.getElementById('tableNumber').value),
+                itemName: document.getElementById('selectMenuItem').value,
+                quantity: parseInt(document.getElementById('orderQuantity').value),
+                status: 'PENDING'
+            };
+
+            fetch(`${BASE_URL}/orders`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(newOrder)
+            }).then(() => {
+                document.getElementById('orderForm').reset();
+                fetchOrders();
+            });
+        });
     </script>
 </body>
 </html>
