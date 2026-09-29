@@ -1,0 +1,85 @@
+### Get all bills
+GET http://localhost:8081/api/bills
+
+
+### Get all payments
+GET http://localhost:8081/api/payments
+
+
+### Create a new bill
+POST http://localhost:8081/api/bills
+Content-Type: application/json
+
+{
+  "orderID": 1,
+  "billDate": "2026-09-29T19:30:00",
+  "subtotal": 3000.00,
+  "tax": 450.00,
+  "discount": 0.00,
+  "totalAmount": 3450.00,
+  "billStatus": "PAID"
+}
+
+### Create a new payment
+POST http://localhost:8081/api/payments
+Content-Type: application/json
+
+{
+  "billID": 2,
+  "paymentDate": "2026-09-29T19:40:00",
+  "amount": 3450.00,
+  "paymentMethod": "CARD",
+  "paymentStatus": "SUCCESS",
+  "transactionRef": "TXN002"
+}
+
+### Get bill by ID
+GET http://localhost:8081/api/bills/1
+
+### Get payment by ID
+GET http://localhost:8081/api/payments/1
+
+### Update bill
+PUT http://localhost:8081/api/bills/1
+Content-Type: application/json
+
+{
+  "orderID": 1,
+  "billDate": "2026-09-29T17:05:36",
+  "subtotal": 2000.00,
+  "tax": 300.00,
+  "discount": 100.00,
+  "totalAmount": 2200.00,
+  "billStatus": "PAID"
+}
+
+### Update payment
+PUT http://localhost:8081/api/payments/1
+Content-Type: application/json
+
+{
+  "billID": 1,
+  "paymentDate": "2026-09-29T17:08:04",
+  "amount": 2200.00,
+  "paymentMethod": "CARD",
+  "paymentStatus": "SUCCESS",
+  "transactionRef": "TXN001-UPDATED"
+}
+
+### Delete bill
+DELETE http://localhost:8081/api/bills/2
+
+### Delete payment
+DELETE http://localhost:8081/api/payments/2
+
+### Delete bill
+DELETE http://localhost:8081/api/bills/2
+
+### Final bill check
+GET http://localhost:8081/api/bills
+
+### Final payment check
+GET http://localhost:8081/api/payments
+
+### Final bill check
+GET http://localhost:8081/api/bills
