@@ -8,6 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/tables")
+@CrossOrigin(origins = "*")
 public class RestaurantTableController {
 
     private final RestaurantTableService restaurantTableService;

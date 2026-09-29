@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Dine - Restaurant Management System</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">🍽️</div>
+
+            <div>
+                <h2>Smart Dine</h2>
+                <span>Restaurant Management</span>
+            </div>
+        </div>
+
+        <nav>
+
+            <button class="nav-btn active" onclick="showSection('dashboard')">
+                🏠 Dashboard
+            </button>
+
+            <button class="nav-btn" onclick="showSection('customers')">
+                👥 Customers
+            </button>
+
+            <button class="nav-btn" onclick="showSection('reservations')">
+                📅 Reservations
+            </button>
+
+            <button class="nav-btn" onclick="showSection('tables')">
+                🪑 Restaurant Tables
+            </button>
+
+        </nav>
+
+        <div class="sidebar-footer">
+            <small>Smart Dine RMS</small>
+            <small>Member 1 - Customer & Reservation</small>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+        <!-- TOP BAR -->
+        <header class="topbar">
+
+            <div>
+                <h1 id="pageTitle">Dashboard</h1>
+                <p>Customer & Reservation Management</p>
+            </div>
+
+            <div class="profile">
+                <div class="profile-icon">P</div>
+
+                <div>
+                    <strong>Admin</strong>
+                    <span>Administrator</span>
+                </div>
+            </div>
+
+        </header>
+
+
+        <!-- DASHBOARD -->
+        <section id="dashboard" class="section active-section">
+
+            <div class="welcome">
+                <div>
+                    <h2>Welcome to Smart Dine 👋</h2>
+
+                    <p>
+                        Manage customers, reservations and restaurant tables
+                        from one place.
+                    </p>
+                </div>
+
+                <div class="welcome-icon">🍴</div>
+            </div>
+
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon customer-icon">👥</div>
+
+                    <div>
+                        <span>Total Customers</span>
+                        <strong id="customerCount">0</strong>
+                    </div>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-icon reservation-icon">📅</div>
+
+                    <div>
+                        <span>Total Reservations</span>
+                        <strong id="reservationCount">0</strong>
+                    </div>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-icon table-icon">🪑</div>
+
+                    <div>
+                        <span>Total Tables</span>
+                        <strong id="tableCount">0</strong>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-grid">
+
+                <div class="card">
+
+                    <div class="card-header">
+                        <div>
+                            <h3>Recent Reservations</h3>
+                            <p>Latest reservation records</p>
+                        </div>
+
+                        <button class="small-btn"
+                                onclick="showSection('reservations')">
+                            View All
+                        </button>
+                    </div>
+
+                    <div id="recentReservations">
+                        Loading...
+                    </div>
+
+                </div>
+
+
+                <div class="card quick-actions">
+
+                    <div class="card-header">
+                        <div>
+                            <h3>Quick Actions</h3>
+                            <p>Common operations</p>
+                        </div>
+                    </div>
+
+                    <button onclick="openCustomerModal()">
+                        ➕ Add Customer
+                    </button>
+
+                    <button onclick="openReservationModal()">
+                        📅 New Reservation
+                    </button>
+
+                    <button onclick="showSection('tables')">
+                        🪑 View Tables
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CUSTOMERS -->
+        <section id="customers" class="section">
+
+            <div class="section-header">
+
+                <div>
+                    <h2>Customer Management</h2>
+                    <p>Manage restaurant customer information.</p>
+                </div>
+
+                <button class="primary-btn"
+                        onclick="openCustomerModal()">
+                    + Add Customer
+                </button>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+
+                        <tbody id="customerTableBody">
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- RESERVATIONS -->
+        <section id="reservations" class="section">
+
+            <div class="section-header">
+
+                <div>
+                    <h2>Reservation Management</h2>
+                    <p>Manage customer table reservations.</p>
+                </div>
+
+                <button class="primary-btn"
+                        onclick="openReservationModal()">
+                    + New Reservation
+                </button>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Customer</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Guests</th>
+                            <th>Table</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+
+                        <tbody id="reservationTableBody">
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- TABLES -->
+        <section id="tables" class="section">
+
+            <div class="section-header">
+
+                <div>
+                    <h2>Restaurant Tables</h2>
+                    <p>View restaurant table information.</p>
+                </div>
+
+            </div>
+
+
+            <div id="tableCards" class="table-cards">
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- CUSTOMER MODAL -->
+<div id="customerModal" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <div>
+                <h2 id="customerModalTitle">Add Customer</h2>
+                <p>Enter customer information.</p>
+            </div>
+
+            <button class="close-btn"
+                    onclick="closeCustomerModal()">
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="customerForm">
+
+            <input type="hidden" id="customerId">
+
+            <label>Name</label>
+            <input type="text"
+                   id="customerName"
+                   required
+                   placeholder="Enter customer name">
+
+
+            <label>Phone</label>
+            <input type="text"
+                   id="customerPhone"
+                   required
+                   placeholder="Enter phone number">
+
+
+            <label>Email</label>
+            <input type="email"
+                   id="customerEmail"
+                   placeholder="Enter email">
+
+
+            <label>Address</label>
+            <textarea id="customerAddress"
+                      placeholder="Enter address"></textarea>
+
+
+            <div class="modal-actions">
+
+                <button type="button"
+                        class="cancel-btn"
+                        onclick="closeCustomerModal()">
+                    Cancel
+                </button>
+
+                <button type="submit"
+                        class="primary-btn">
+                    Save Customer
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- RESERVATION MODAL -->
+<div id="reservationModal" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <div>
+                <h2 id="reservationModalTitle">
+                    New Reservation
+                </h2>
+
+                <p>Enter reservation details.</p>
+            </div>
+
+            <button class="close-btn"
+                    onclick="closeReservationModal()">
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="reservationForm">
+
+            <input type="hidden" id="reservationId">
+
+
+            <label>Customer</label>
+
+            <select id="reservationCustomer" required>
+                <option value="">Select customer</option>
+            </select>
+
+
+            <label>Restaurant Table</label>
+
+            <select id="reservationTable" required>
+                <option value="">Select table</option>
+            </select>
+
+
+            <label>Date</label>
+
+            <input type="date"
+                   id="reservationDate"
+                   required>
+
+
+            <label>Time</label>
+
+            <input type="time"
+                   id="reservationTime"
+                   required>
+
+
+            <label>Number of Guests</label>
+
+            <input type="number"
+                   id="reservationGuests"
+                   min="1"
+                   required>
+
+
+            <label>Status</label>
+
+            <select id="reservationStatus">
+
+                <option value="Pending">Pending</option>
+                <option value="Confirmed">Confirmed</option>
+                <option value="Completed">Completed</option>
+                <option value="Cancelled">Cancelled</option>
+
+            </select>
+
+
+            <div class="modal-actions">
+
+                <button type="button"
+                        class="cancel-btn"
+                        onclick="closeReservationModal()">
+                    Cancel
+                </button>
+
+                <button type="submit"
+                        class="primary-btn">
+                    Save Reservation
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- NOTIFICATION -->
+<div id="notification" class="notification"></div>
+
+
+<script src="app.js"></script>
+
+</body>
+</html>
