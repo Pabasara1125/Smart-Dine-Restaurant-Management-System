@@ -4,9 +4,10 @@ import com.example.backend.model.Bill;
 import com.example.backend.service.BillService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
-
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/bills")
 public class BillController {

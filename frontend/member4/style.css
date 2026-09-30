@@ -1,0 +1,181 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    color: #333;
+}
+
+/* Header */
+header {
+    background: #1f2937;
+    color: white;
+    text-align: center;
+    padding: 25px;
+}
+
+header h1 {
+    font-size: 32px;
+    margin-bottom: 5px;
+}
+
+header p {
+    font-size: 16px;
+    color: #d1d5db;
+}
+
+/* Navigation */
+nav {
+    background: white;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+nav button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+nav button:hover {
+    background: #1d4ed8;
+}
+
+/* Main area */
+main {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+/* Sections */
+.section {
+    display: none;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    margin-bottom: 20px;
+}
+
+.section:first-child {
+    display: block;
+}
+
+.section h2 {
+    margin-bottom: 20px;
+    color: #1f2937;
+}
+
+/* Forms */
+form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+form label {
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+form input,
+form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+form button {
+    grid-column: span 2;
+    background: #16a34a;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    margin-top: 10px;
+}
+
+form button:hover {
+    background: #15803d;
+}
+
+/* Messages */
+#billMessage,
+#paymentMessage {
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+/* Load buttons */
+.section > button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.section > button:hover {
+    background: #1d4ed8;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table th,
+table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table th {
+    background: #1f2937;
+    color: white;
+}
+
+table tr:nth-child(even) {
+    background: #f9fafb;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+
+    nav {
+        flex-direction: column;
+    }
+
+    form {
+        grid-template-columns: 1fr;
+    }
+
+    form button {
+        grid-column: span 1;
+    }
+
+    main {
+        padding: 0 10px;
+    }
+}
