@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -104,7 +105,6 @@
                     </div>
                 </div>
 
-
                 <div class="stat-card">
                     <div class="stat-icon reservation-icon">📅</div>
 
@@ -113,7 +113,6 @@
                         <strong id="reservationCount">0</strong>
                     </div>
                 </div>
-
 
                 <div class="stat-card">
                     <div class="stat-icon table-icon">🪑</div>
@@ -274,7 +273,7 @@
         </section>
 
 
-        <!-- TABLES -->
+        <!-- RESTAURANT TABLES -->
         <section id="tables" class="section">
 
             <div class="section-header">
@@ -286,9 +285,7 @@
 
             </div>
 
-
-            <div id="tableCards" class="table-cards">
-            </div>
+            <div id="tableCards" class="table-cards"></div>
 
         </section>
 
@@ -309,7 +306,8 @@
                 <p>Enter customer information.</p>
             </div>
 
-            <button class="close-btn"
+            <button type="button"
+                    class="close-btn"
                     onclick="closeCustomerModal()">
                 ×
             </button>
@@ -317,45 +315,107 @@
         </div>
 
 
-        <form id="customerForm">
+        <!-- CUSTOMER FORM WITH VALIDATION -->
+        <form id="customerForm" novalidate>
 
             <input type="hidden" id="customerId">
 
-            <label>Name</label>
-            <input type="text"
-                   id="customerName"
-                   required
-                   placeholder="Enter customer name">
+
+            <!-- NAME -->
+            <label for="customerName">Name</label>
+
+            <input
+                type="text"
+                id="customerName"
+                name="customerName"
+                placeholder="Enter customer name"
+                minlength="2"
+                maxlength="100"
+                autocomplete="name"
+                required
+                aria-describedby="customerNameError"
+            >
+
+            <small
+                class="field-error"
+                id="customerNameError"
+                aria-live="polite">
+            </small>
 
 
-            <label>Phone</label>
-            <input type="text"
-                   id="customerPhone"
-                   required
-                   placeholder="Enter phone number">
+            <!-- PHONE -->
+            <label for="customerPhone">Phone</label>
+
+            <input
+                type="tel"
+                id="customerPhone"
+                name="customerPhone"
+                placeholder="Enter phone number"
+                maxlength="20"
+                autocomplete="tel"
+                required
+                aria-describedby="customerPhoneError"
+            >
+
+            <small
+                class="field-error"
+                id="customerPhoneError"
+                aria-live="polite">
+            </small>
 
 
-            <label>Email</label>
-            <input type="email"
-                   id="customerEmail"
-                   placeholder="Enter email">
+            <!-- EMAIL -->
+            <label for="customerEmail">Email</label>
+
+            <input
+                type="email"
+                id="customerEmail"
+                name="customerEmail"
+                placeholder="Enter email"
+                maxlength="254"
+                autocomplete="email"
+                aria-describedby="customerEmailError"
+            >
+
+            <small
+                class="field-error"
+                id="customerEmailError"
+                aria-live="polite">
+            </small>
 
 
-            <label>Address</label>
-            <textarea id="customerAddress"
-                      placeholder="Enter address"></textarea>
+            <!-- ADDRESS -->
+            <label for="customerAddress">Address</label>
+
+            <textarea
+                id="customerAddress"
+                name="customerAddress"
+                placeholder="Enter address"
+                maxlength="250"
+                autocomplete="street-address"
+                aria-describedby="customerAddressError"
+            ></textarea>
+
+            <small
+                class="field-error"
+                id="customerAddressError"
+                aria-live="polite">
+            </small>
 
 
+            <!-- BUTTONS -->
             <div class="modal-actions">
 
-                <button type="button"
-                        class="cancel-btn"
-                        onclick="closeCustomerModal()">
+                <button
+                    type="button"
+                    class="cancel-btn"
+                    onclick="closeCustomerModal()">
                     Cancel
                 </button>
 
-                <button type="submit"
-                        class="primary-btn">
+                <button
+                    type="submit"
+                    class="primary-btn">
                     Save Customer
                 </button>
 
@@ -383,7 +443,8 @@
                 <p>Enter reservation details.</p>
             </div>
 
-            <button class="close-btn"
+            <button type="button"
+                    class="close-btn"
                     onclick="closeReservationModal()">
                 ×
             </button>
@@ -396,43 +457,49 @@
             <input type="hidden" id="reservationId">
 
 
-            <label>Customer</label>
+            <label for="reservationCustomer">Customer</label>
 
             <select id="reservationCustomer" required>
                 <option value="">Select customer</option>
             </select>
 
 
-            <label>Restaurant Table</label>
+            <label for="reservationTable">Restaurant Table</label>
 
             <select id="reservationTable" required>
                 <option value="">Select table</option>
             </select>
 
 
-            <label>Date</label>
+            <label for="reservationDate">Date</label>
 
-            <input type="date"
-                   id="reservationDate"
-                   required>
-
-
-            <label>Time</label>
-
-            <input type="time"
-                   id="reservationTime"
-                   required>
+            <input
+                type="date"
+                id="reservationDate"
+                required
+            >
 
 
-            <label>Number of Guests</label>
+            <label for="reservationTime">Time</label>
 
-            <input type="number"
-                   id="reservationGuests"
-                   min="1"
-                   required>
+            <input
+                type="time"
+                id="reservationTime"
+                required
+            >
 
 
-            <label>Status</label>
+            <label for="reservationGuests">Number of Guests</label>
+
+            <input
+                type="number"
+                id="reservationGuests"
+                min="1"
+                required
+            >
+
+
+            <label for="reservationStatus">Status</label>
 
             <select id="reservationStatus">
 
@@ -446,14 +513,16 @@
 
             <div class="modal-actions">
 
-                <button type="button"
-                        class="cancel-btn"
-                        onclick="closeReservationModal()">
+                <button
+                    type="button"
+                    class="cancel-btn"
+                    onclick="closeReservationModal()">
                     Cancel
                 </button>
 
-                <button type="submit"
-                        class="primary-btn">
+                <button
+                    type="submit"
+                    class="primary-btn">
                     Save Reservation
                 </button>
 
@@ -470,6 +539,7 @@
 <div id="notification" class="notification"></div>
 
 
+<!-- JAVASCRIPT -->
 <script src="app.js"></script>
 
 </body>

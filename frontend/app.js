@@ -230,11 +230,27 @@ function closeCustomerModal() {
 
 }
 
-
 document.getElementById("customerForm")
     .addEventListener("submit", async function(event) {
 
-        event.preventDefault();
+    event.preventDefault();
+
+    // Validate the customer form before saving
+    const name = document.getElementById("customerName").value.trim();
+    const phone = document.getElementById("customerPhone").value.trim();
+    const email = document.getElementById("customerEmail").value.trim();
+
+    if (!name || !phone) {
+        alert("Please enter the customer name and phone number.");
+        return;
+    }
+
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        alert("Please enter a valid email address.");
+        return;
+    }
+
+    
 
 
         const id =
