@@ -1,0 +1,312 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Dine | Billing & Payment</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="dashboard">
+
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">S</div>
+            <div>
+                <h2>Smart Dine</h2>
+                <p>Restaurant Management</p>
+            </div>
+        </div>
+
+        <p class="menu-label">MAIN MENU</p>
+
+        <nav>
+            <a href="#" class="nav-link active" data-page="dashboard">▦ Dashboard</a>
+            <a href="#" class="nav-link" data-page="bills">▤ Bills</a>
+            <a href="#" class="nav-link" data-page="payments">💳 Payments</a>
+            <a href="#" class="nav-link" data-page="reports">▥ Payment Reports</a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <p>SMART DINE SYSTEM</p>
+            <span>Member 4 · Billing & Payment</span>
+        </div>
+    </aside>
+
+    <main class="main-content">
+
+        <header class="topbar">
+            <div>
+                <h1 id="page-title">Dashboard Overview</h1>
+                <p id="page-description">Manage bills and payments in one place.</p>
+            </div>
+            <div class="user-profile">
+                <div class="avatar">M4</div>
+                <div>
+                    <strong>Billing Admin</strong>
+                    <span>Member 4</span>
+                </div>
+            </div>
+        </header>
+
+        <section id="dashboard-page" class="page">
+
+            <div class="welcome">
+                <div>
+                    <h2>Welcome to Billing & Payment</h2>
+                    <p>Track restaurant bills, payments, and revenue.</p>
+                </div>
+                <button class="primary-btn" id="refresh-btn">↻ Refresh Data</button>
+            </div>
+
+            <div class="stats-grid">
+                <article class="stat-card">
+                    <div class="stat-icon purple">▤</div>
+                    <p>Total Bills</p>
+                    <h2 id="total-bills">0</h2>
+                    <span>All recorded bills</span>
+                </article>
+
+                <article class="stat-card">
+                    <div class="stat-icon green">Rs</div>
+                    <p>Total Revenue</p>
+                    <h2 id="total-revenue">Rs 0.00</h2>
+                    <span>From successful payments</span>
+                </article>
+
+                <article class="stat-card">
+                    <div class="stat-icon blue">✓</div>
+                    <p>Successful Payments</p>
+                    <h2 id="successful-payments">0</h2>
+                    <span>Completed transactions</span>
+                </article>
+
+                <article class="stat-card">
+                    <div class="stat-icon orange">◷</div>
+                    <p>Pending Payments</p>
+                    <h2 id="pending-payments">0</h2>
+                    <span>Awaiting completion</span>
+                </article>
+            </div>
+
+            <section class="panel">
+                <div class="section-heading">
+                    <div>
+                        <h2>Quick Actions</h2>
+                        <p>Choose what you want to do next.</p>
+                    </div>
+                </div>
+
+                <div class="actions-grid">
+                    <button class="action-card" data-page="bills">
+                        <span class="action-icon purple">＋</span>
+                        <strong>Create Bill</strong>
+                        <span>Create and manage customer bills</span>
+                        <span class="action-arrow">→</span>
+                    </button>
+
+                    <button class="action-card" data-page="payments">
+                        <span class="action-icon green">↗</span>
+                        <strong>Record Payment</strong>
+                        <span>View and record payment details</span>
+                        <span class="action-arrow">→</span>
+                    </button>
+
+                    <button class="action-card" data-page="bills">
+                        <span class="action-icon blue">⌕</span>
+                        <strong>Search Bills</strong>
+                        <span>Find existing billing records</span>
+                        <span class="action-arrow">→</span>
+                    </button>
+                </div>
+            </section>
+
+            <section class="panel">
+                <div class="section-heading">
+                    <div>
+                        <h2>Recent Bills</h2>
+                        <p>Latest billing records from the system.</p>
+                    </div>
+                    <button class="text-btn" data-page="bills">View All →</button>
+                </div>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Bill ID</th>
+                            <th>Order ID</th>
+                            <th>Total Amount</th>
+                            <th>Bill Date</th>
+                        </tr>
+                        </thead>
+                        <tbody id="recent-bills">
+                        <tr>
+                            <td colspan="4" class="empty-state">Loading bills...</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <p id="dashboard-message" class="message"></p>
+        </section>
+
+        <section id="bills-page" class="page hidden">
+            <section class="panel">
+                <div class="section-heading">
+                    <div>
+                        <h2>Billing Records</h2>
+                        <p>View and search existing bills.</p>
+                    </div>
+                    <button class="primary-btn" id="show-bill-form">+ Create Bill</button>
+                </div>
+
+                <form id="bill-form" class="data-form hidden">
+                    <h3>Create a Bill</h3>
+
+                    <label for="bill-order-id">Order ID</label>
+                    <input id="bill-order-id" type="number" min="1" required>
+
+                    <label for="bill-subtotal">Subtotal (Rs)</label>
+                    <input id="bill-subtotal" type="number" min="0" step="0.01" required>
+
+                    <label for="bill-tax">Tax (Rs)</label>
+                    <input id="bill-tax" type="number" min="0" step="0.01" value="0" required>
+
+                    <label for="bill-discount">Discount (Rs)</label>
+                    <input id="bill-discount" type="number" min="0" step="0.01" value="0" required>
+
+                    <div class="form-actions">
+                        <button class="primary-btn" type="submit">Save Bill</button>
+                        <button class="secondary-btn" type="button" id="cancel-bill">Cancel</button>
+                    </div>
+                </form>
+
+                <input id="bill-search" class="search-input"
+                       type="search" placeholder="Search bills by ID or order ID...">
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Bill ID</th>
+                            <th>Order ID</th>
+                            <th>Subtotal</th>
+                            <th>Tax</th>
+                            <th>Discount</th>
+                            <th>Total</th>
+                            <th>Date</th>
+                        </tr>
+                        </thead>
+                        <tbody id="bills-table">
+                        <tr><td colspan="7" class="empty-state">Loading bills...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <p id="bills-message" class="message"></p>
+        </section>
+
+        <section id="payments-page" class="page hidden">
+            <section class="panel">
+                <div class="section-heading">
+                    <div>
+                        <h2>Payment Records</h2>
+                        <p>Review payment transactions and their statuses.</p>
+                    </div>
+                    <button class="primary-btn" id="show-payment-form">+ Record Payment</button>
+                </div>
+
+                <form id="payment-form" class="data-form hidden">
+                    <h3>Record a Payment</h3>
+
+                    <label for="payment-bill-id">Bill ID</label>
+                    <input id="payment-bill-id" type="number" min="1" required>
+
+                    <label for="payment-amount">Payment Amount (Rs)</label>
+                    <input id="payment-amount" type="number" min="0.01" step="0.01" required>
+
+                    <label for="payment-method">Payment Method</label>
+                    <select id="payment-method" required>
+                        <option value="">Select a method</option>
+                        <option value="Cash">Cash</option>
+                        <option value="Card">Card</option>
+                        <option value="Online">Online</option>
+                    </select>
+
+                    <div class="form-actions">
+                        <button class="primary-btn" type="submit">Save Payment</button>
+                        <button class="secondary-btn" type="button" id="cancel-payment">Cancel</button>
+                    </div>
+                </form>
+
+                <input id="payment-search" class="search-input"
+                       type="search" placeholder="Search payments by ID or bill ID...">
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Payment ID</th>
+                            <th>Bill ID</th>
+                            <th>Amount</th>
+                            <th>Method</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                        </tr>
+                        </thead>
+                        <tbody id="payments-table">
+                        <tr><td colspan="6" class="empty-state">Loading payments...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <p id="payments-message" class="message"></p>
+        </section>
+
+        <section id="reports-page" class="page hidden">
+            <section class="panel">
+                <div class="section-heading">
+                    <div>
+                        <h2>Payment Reports</h2>
+                        <p>A summary of the available billing and payment records.</p>
+                    </div>
+                    <button class="primary-btn" id="report-refresh">↻ Refresh Report</button>
+                </div>
+
+                <div class="report-grid">
+                    <article class="report-card">
+                        <span>Total Bills</span>
+                        <strong id="report-bills">0</strong>
+                    </article>
+                    <article class="report-card">
+                        <span>Successful Payments</span>
+                        <strong id="report-successful">0</strong>
+                    </article>
+                    <article class="report-card">
+                        <span>Pending Payments</span>
+                        <strong id="report-pending">0</strong>
+                    </article>
+                    <article class="report-card">
+                        <span>Successful Payment Revenue</span>
+                        <strong id="report-revenue">Rs 0.00</strong>
+                    </article>
+                </div>
+            </section>
+            <p id="reports-message" class="message"></p>
+        </section>
+
+        <footer>
+            Smart Dine Restaurant Management System · Billing & Payment Module
+        </footer>
+
+    </main>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
+```
