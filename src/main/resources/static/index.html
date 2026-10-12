@@ -5,126 +5,213 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart-Dine | Menu & Order Management</title>
     <style>
-        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f4f6f9; margin: 0; padding: 20px; color: #333; }
-        h1 { text-align: center; color: #2c3e50; }
-        .grid-container { display: grid; grid-template-columns: 1fr 2fr; gap: 20px; max-width: 1200px; margin: 0 auto; }
-        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        h2 { border-bottom: 2px solid #3498db; padding-bottom: 8px; color: #3498db; margin-top: 0; }
-        
-        .form-group { margin-bottom: 12px; }
-        label { display: block; margin-bottom: 4px; font-weight: bold; font-size: 14px; }
-        input[type="text"], input[type="number"], select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
-        button { background-color: #2ecc71; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; width: 100%; }
-        button:hover { background-color: #27ae60; }
-        .btn-order { background-color: #3498db; }
-        .btn-order:hover { background-color: #2980b9; }
-        .btn-danger { background-color: #e74c3c; width: auto; padding: 4px 8px; font-size: 12px; }
-        .btn-danger:hover { background-color: #c0392b; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Arial, sans-serif; }
+        body { background: #f4f6fb; color: #1e2a4a; display: flex; min-height: 100vh; }
 
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; font-size: 14px; }
-        th { background-color: #f8f9fa; }
-        .badge { padding: 4px 8px; border-radius: 4px; font-size: 12px; color: white; display: inline-block; }
-        .badge-success { background-color: #2ecc71; }
-        .badge-warning { background-color: #f39c12; }
+        /* ===== Sidebar ===== */
+        .sidebar { width: 270px; background: #0f1a3c; color: #fff; padding: 30px 20px; flex-shrink: 0; }
+        .brand { display: flex; align-items: center; gap: 14px; margin-bottom: 40px; padding-left: 10px; }
+        .brand .logo { font-size: 32px; }
+        .brand h2 { font-size: 21px; font-weight: 700; }
+        .brand p { font-size: 12px; color: #9fb0d6; margin-top: 3px; }
+        .nav a { display: flex; align-items: center; gap: 12px; padding: 14px 18px; margin-bottom: 10px; border-radius: 10px; color: #dbe3f7; text-decoration: none; font-size: 15px; transition: background 0.2s; }
+        .nav a:hover { background: #1b2a57; }
+        .nav a.active { background: #26366a; color: #fff; }
+
+        /* ===== Main area ===== */
+        .main { flex: 1; min-width: 0; }
+        .topbar { background: #fff; display: flex; justify-content: space-between; align-items: center; padding: 20px 36px; border-bottom: 1px solid #e6eaf3; }
+        .topbar h1 { font-size: 25px; text-align: left; color: #1e2a4a; }
+        .topbar p { font-size: 14px; color: #6b7a99; margin-top: 4px; }
+        .profile { display: flex; align-items: center; gap: 12px; }
+        .avatar { width: 44px; height: 44px; border-radius: 50%; background: #26366a; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 600; }
+        .profile strong { display: block; font-size: 15px; }
+        .profile span { font-size: 12px; color: #6b7a99; }
+
+        .content { padding: 30px 36px; }
+        .grid-container { display: grid; grid-template-columns: 360px 1fr; gap: 24px; align-items: start; }
+        .col { display: flex; flex-direction: column; gap: 24px; }
+
+        /* ===== Cards ===== */
+        .card { background: #fff; padding: 26px; border-radius: 14px; box-shadow: 0 2px 8px rgba(20,30,70,0.05); }
+        .card h2 { font-size: 19px; color: #1e2a4a; border: none; padding: 0; margin: 0 0 4px 0; }
+        .card .sub { font-size: 13px; color: #8a96b2; margin-bottom: 20px; }
+
+        /* ===== Forms ===== */
+        .form-group { margin-bottom: 16px; }
+        label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 13px; color: #3a4668; }
+        input[type="text"], input[type="number"], select { width: 100%; padding: 11px 12px; border: 1px solid #dfe4ef; border-radius: 8px; font-size: 14px; background: #fff; color: #1e2a4a; }
+        input:focus, select:focus { outline: none; border-color: #3b5bdb; box-shadow: 0 0 0 3px rgba(59,91,219,0.12); }
+
+        button { background: #1d9a5b; color: #fff; border: none; padding: 12px 15px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 14px; width: 100%; transition: background 0.2s; }
+        button:hover { background: #178049; }
+        .btn-order { background: #2c3e6b; }
+        .btn-order:hover { background: #26366a; }
+        .btn-danger { background: #fff; color: #b42318; border: 1px solid #f3c4c0; width: auto; padding: 6px 12px; font-size: 12px; border-radius: 6px; }
+        .btn-danger:hover { background: #fde4e4; }
+
+        /* ===== Tables ===== */
+        .table-wrap { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; font-size: 13px; color: #6b7a99; font-weight: 600; padding: 12px 14px; background: #f4f6fb; border: none; }
+        th:first-child { border-radius: 8px 0 0 8px; }
+        th:last-child { border-radius: 0 8px 8px 0; }
+        td { padding: 15px 14px; font-size: 14px; border: none; border-bottom: 1px solid #eef1f7; }
+        tbody tr:last-child td { border-bottom: none; }
+
+        /* ===== Badges ===== */
+        .badge { padding: 5px 13px; border-radius: 20px; font-size: 12px; font-weight: 600; display: inline-block; color: inherit; }
+        .badge-success { background: #dff5e7; color: #1d7a45; }
+        .badge-warning { background: #fff4d6; color: #a06a00; }
+
+        @media (max-width: 1000px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; }
+            .grid-container { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
 
-    <h1>Smart-Dine: Menu & Order Management</h1>
-
-    <div class="grid-container">
-        <!-- LEFT COLUMN: FORMS -->
-        <div>
-            <!-- Form 1: Add Menu Item -->
-            <div class="card">
-                <h2>Add Menu Item</h2>
-                <form id="menuForm">
-                    <div class="form-group">
-                        <label for="itemName">Item Name</label>
-                        <input type="text" id="itemName" required placeholder="e.g. Chicken Burger">
-                    </div>
-                    <div class="form-group">
-                        <label for="itemCategory">Category</label>
-                        <input type="text" id="itemCategory" required placeholder="e.g. Mains / Drinks">
-                    </div>
-                    <div class="form-group">
-                        <label for="itemPrice">Price (LKR)</label>
-                        <input type="number" step="0.01" id="itemPrice" required placeholder="1000">
-                    </div>
-                    <div class="form-group">
-                        <label for="itemAvailable">Availability</label>
-                        <select id="itemAvailable">
-                            <option value="true">Available</option>
-                            <option value="false">Out of Stock</option>
-                        </select>
-                    </div>
-                    <button type="submit">Save Menu Item</button>
-                </form>
-            </div>
-
-            <!-- Form 2: Place New Order -->
-            <div class="card">
-                <h2>Place New Order</h2>
-                <form id="orderForm">
-                    <div class="form-group">
-                        <label for="tableNumber">Table Number</label>
-                        <input type="number" id="tableNumber" required placeholder="1">
-                    </div>
-                    <div class="form-group">
-                        <label for="selectMenuItem">Select Menu Item</label>
-                        <select id="selectMenuItem" required>
-                            <!-- Dynamically populated from menu items -->
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="orderQuantity">Quantity</label>
-                        <input type="number" id="orderQuantity" min="1" value="1" required>
-                    </div>
-                    <button type="submit" class="btn-order">Create Order</button>
-                </form>
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="logo">🍽️</div>
+            <div>
+                <h2>Smart Dine</h2>
+                <p>Restaurant Management</p>
             </div>
         </div>
+        <nav class="nav">
+            <a href="#" class="active">🏠 Dashboard</a>
+            <a href="#menuCard">🍔 Menu Items</a>
+            <a href="#ordersCard">🧾 Orders</a>
+        </nav>
+    </aside>
 
-        <!-- RIGHT COLUMN: TABLES -->
-        <div>
-            <!-- Table 1: Current Menu -->
-            <div class="card">
-                <h2>Current Menu</h2>
-                <table id="menuTable">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Category</th>
-                            <th>Price</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
+    <div class="main">
 
-            <!-- Table 2: Active Orders -->
-            <div class="card">
-                <h2>Active Orders</h2>
-                <table id="ordersTable">
-                    <thead>
-                        <tr>
-                            <th>Order ID</th>
-                            <th>Table No</th>
-                            <th>Item Name</th>
-                            <th>Quantity</th>
-                            <th>Total Price</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+        <!-- TOP BAR -->
+        <header class="topbar">
+            <div>
+                <h1>Dashboard</h1>
+                <p>Menu &amp; Order Management</p>
             </div>
-        </div>
+            <div class="profile">
+                <div class="avatar">V</div>
+                <div>
+                    <strong>Admin</strong>
+                    <span>Administrator</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="content">
+            <div class="grid-container">
+
+                <!-- LEFT COLUMN: FORMS -->
+                <div class="col">
+
+                    <!-- Form 1: Add Menu Item -->
+                    <div class="card">
+                        <h2>Add Menu Item</h2>
+                        <p class="sub">Create a new item on the menu</p>
+                        <form id="menuForm">
+                            <div class="form-group">
+                                <label for="itemName">Item Name</label>
+                                <input type="text" id="itemName" required placeholder="e.g. Chicken Burger">
+                            </div>
+                            <div class="form-group">
+                                <label for="itemCategory">Category</label>
+                                <input type="text" id="itemCategory" required placeholder="e.g. Mains / Drinks">
+                            </div>
+                            <div class="form-group">
+                                <label for="itemPrice">Price (LKR)</label>
+                                <input type="number" step="0.01" id="itemPrice" required placeholder="1000">
+                            </div>
+                            <div class="form-group">
+                                <label for="itemAvailable">Availability</label>
+                                <select id="itemAvailable">
+                                    <option value="true">Available</option>
+                                    <option value="false">Out of Stock</option>
+                                </select>
+                            </div>
+                            <button type="submit">Save Menu Item</button>
+                        </form>
+                    </div>
+
+                    <!-- Form 2: Place New Order -->
+                    <div class="card">
+                        <h2>Place New Order</h2>
+                        <p class="sub">Create an order for a table</p>
+                        <form id="orderForm">
+                            <div class="form-group">
+                                <label for="tableNumber">Table Number</label>
+                                <input type="number" id="tableNumber" required placeholder="1">
+                            </div>
+                            <div class="form-group">
+                                <label for="selectMenuItem">Select Menu Item</label>
+                                <select id="selectMenuItem" required>
+                                    <!-- Dynamically populated from menu items -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="orderQuantity">Quantity</label>
+                                <input type="number" id="orderQuantity" min="1" value="1" required>
+                            </div>
+                            <button type="submit" class="btn-order">Create Order</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN: TABLES -->
+                <div class="col">
+
+                    <!-- Table 1: Current Menu -->
+                    <div class="card" id="menuCard">
+                        <h2>Current Menu</h2>
+                        <p class="sub">All menu items and their availability</p>
+                        <div class="table-wrap">
+                            <table id="menuTable">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Category</th>
+                                        <th>Price</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Table 2: Active Orders -->
+                    <div class="card" id="ordersCard">
+                        <h2>Active Orders</h2>
+                        <p class="sub">Orders currently in progress</p>
+                        <div class="table-wrap">
+                            <table id="ordersTable">
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Table No</th>
+                                        <th>Item Name</th>
+                                        <th>Quantity</th>
+                                        <th>Total Price</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
     </div>
 
     <script>
