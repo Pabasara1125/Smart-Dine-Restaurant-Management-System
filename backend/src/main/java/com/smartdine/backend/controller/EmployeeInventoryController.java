@@ -49,43 +49,94 @@ public class EmployeeInventoryController {
             BigDecimal reorderLevel,
             Integer supplierId) {
     }
+@PostMapping("/inventory")
+public ResponseEntity<?> addInventory(
+        @RequestBody InventoryDTO dto) {
 
-    @PostMapping("/inventory")
-    public ResponseEntity<?> addInventory(
-            @RequestBody InventoryDTO dto) {
+    // Validate required fields
+    if (dto.itemName() == null || dto.itemName().isBlank()
+            || dto.quantity() == null
+            || dto.unit() == null || dto.unit().isBlank()
+            || dto.reorderLevel() == null) {
 
-        if (dto.itemName() == null || dto.itemName().isBlank()
-                || dto.quantity() == null
-                || dto.unit() == null || dto.unit().isBlank()
-                || dto.reorderLevel() == null) {
+        return ResponseEntity.badRequest()
+                .body("Item name, quantity, unit and reorder level are required.");
+    }
 
+    // Quantity purchased must be greater than zero
+    if (dto.quantity().compareTo(BigDecimal.ZERO) <= 0) {
+        return ResponseEntity.badRequest()
+                .body("Purchased quantity must be greater than zero.");
+    }
+
+    // Reorder level cannot be negative
+    if (dto.reorderLevel().compareTo(BigDecimal.ZERO) < 0) {
+        return ResponseEntity.badRequest()
+                .body("Reorder level cannot be negative.");
+    }
+
+    String itemName = dto.itemName().trim();
+    String unit = dto.unit().trim();
+
+    // Find existing stock using item name and unit
+    Inventory item = inventoryRepository
+            .findFirstByItemNameIgnoreCaseAndUnitIgnoreCase(
+                    itemName,
+                    unit
+            )
+            .orElse(null);
+
+    // Find and validate supplier, if selected
+    Supplier supplier = null;
+
+    if (dto.supplierId() != null) {
+
+        supplier = supplierRepository
+                .findById(dto.supplierId())
+                .orElse(null);
+
+        if (supplier == null) {
             return ResponseEntity.badRequest()
-                    .body("Item name, quantity, unit and reorder level are required.");
+                    .body("Supplier not found: " + dto.supplierId());
         }
+    }
 
-        Inventory item = new Inventory();
+    if (item != null) {
 
-        item.setItemName(dto.itemName());
-        item.setQuantity(dto.quantity());
-        item.setUnit(dto.unit());
+        // Existing item: increase its stock
+        BigDecimal updatedQuantity =
+                item.getQuantity().add(dto.quantity());
+
+        item.setQuantity(updatedQuantity);
+
+        // Update the reorder level with the submitted value
         item.setReorderLevel(dto.reorderLevel());
 
-        if (dto.supplierId() != null) {
-            Supplier supplier = supplierRepository
-                    .findById(dto.supplierId())
-                    .orElse(null);
-
-            if (supplier == null) {
-                return ResponseEntity.badRequest()
-                        .body("Supplier not found: " + dto.supplierId());
-            }
-
+        // Update supplier only if a supplier was selected
+        if (supplier != null) {
             item.setSupplier(supplier);
         }
 
-        return ResponseEntity.ok(
-                inventoryRepository.save(item));
+    } else {
+
+        // New item: create a new inventory record
+        item = new Inventory();
+
+        item.setItemName(itemName);
+        item.setQuantity(dto.quantity());
+        item.setUnit(unit);
+        item.setReorderLevel(dto.reorderLevel());
+
+        if (supplier != null) {
+            item.setSupplier(supplier);
+        }
     }
+
+    return ResponseEntity.ok(
+            inventoryRepository.save(item)
+    );
+}
+
 
     @DeleteMapping("/inventory/{id}")
     public ResponseEntity<Void> deleteInventory(

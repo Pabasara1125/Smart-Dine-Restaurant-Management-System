@@ -4,9 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Smart Dine - Restaurant Management System</title>
-
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -19,7 +17,6 @@
 
         <div class="logo">
             <div class="logo-icon">🍽️</div>
-
             <div>
                 <h2>Smart Dine</h2>
                 <span>Restaurant Management</span>
@@ -27,23 +24,17 @@
         </div>
 
         <nav>
-
-            <button class="nav-btn active" onclick="showSection('dashboard')">
-                🏠 Dashboard
-            </button>
-
-            <button class="nav-btn" onclick="showSection('customers')">
-                👥 Customers
-            </button>
-
-            <button class="nav-btn" onclick="showSection('reservations')">
-                📅 Reservations
-            </button>
-
-            <button class="nav-btn" onclick="showSection('tables')">
-                🪑 Restaurant Tables
-            </button>
-
+            <button class="nav-btn active" onclick="showSection('dashboard')">🏠 Dashboard</button>
+            <button class="nav-btn" onclick="showSection('customers')">👥 Customers</button>
+            <button class="nav-btn" onclick="showSection('reservations')">📅 Reservations</button>
+            <button class="nav-btn" onclick="showSection('tables')">🪑 Restaurant Tables</button>
+            <button class="nav-btn" onclick="showSection('menu')">🍽️ Menu Management</button>
+            <button class="nav-btn" onclick="showSection('orders')">🛒 Order Management</button>
+            <button class="nav-btn" onclick="showSection('employees')">👨‍💼 Employee Management</button>
+            <button class="nav-btn" onclick="showSection('suppliers')">🚚 Supplier Management</button>
+            <button class="nav-btn" onclick="showSection('inventory')">📦 Inventory Management</button>
+            <button class="nav-btn" onclick="showSection('billing')">🧾 Billing Management</button>
+            <button class="nav-btn" onclick="showSection('payments')">💳 Payment Management</button>
         </nav>
 
         <div class="sidebar-footer">
@@ -53,13 +44,11 @@
 
     </aside>
 
-
     <!-- MAIN CONTENT -->
     <main class="main">
 
         <!-- TOP BAR -->
         <header class="topbar">
-
             <div>
                 <h1 id="pageTitle">Dashboard</h1>
                 <p>Customer & Reservation Management</p>
@@ -67,15 +56,12 @@
 
             <div class="profile">
                 <div class="profile-icon">P</div>
-
                 <div>
                     <strong>Admin</strong>
                     <span>Administrator</span>
                 </div>
             </div>
-
         </header>
-
 
         <!-- DASHBOARD -->
         <section id="dashboard" class="section active-section">
@@ -83,22 +69,15 @@
             <div class="welcome">
                 <div>
                     <h2>Welcome to Smart Dine 👋</h2>
-
-                    <p>
-                        Manage customers, reservations and restaurant tables
-                        from one place.
-                    </p>
+                    <p>Manage customers, reservations and restaurant tables from one place.</p>
                 </div>
-
                 <div class="welcome-icon">🍴</div>
             </div>
-
 
             <div class="stats-grid">
 
                 <div class="stat-card">
                     <div class="stat-icon customer-icon">👥</div>
-
                     <div>
                         <span>Total Customers</span>
                         <strong id="customerCount">0</strong>
@@ -107,7 +86,6 @@
 
                 <div class="stat-card">
                     <div class="stat-icon reservation-icon">📅</div>
-
                     <div>
                         <span>Total Reservations</span>
                         <strong id="reservationCount">0</strong>
@@ -116,7 +94,6 @@
 
                 <div class="stat-card">
                     <div class="stat-icon table-icon">🪑</div>
-
                     <div>
                         <span>Total Tables</span>
                         <strong id="tableCount">0</strong>
@@ -125,32 +102,21 @@
 
             </div>
 
-
             <div class="dashboard-grid">
 
                 <div class="card">
-
                     <div class="card-header">
                         <div>
                             <h3>Recent Reservations</h3>
                             <p>Latest reservation records</p>
                         </div>
-
-                        <button class="small-btn"
-                                onclick="showSection('reservations')">
-                            View All
-                        </button>
+                        <button class="small-btn" onclick="showSection('reservations')">View All</button>
                     </div>
 
-                    <div id="recentReservations">
-                        Loading...
-                    </div>
-
+                    <div id="recentReservations">Loading...</div>
                 </div>
 
-
                 <div class="card quick-actions">
-
                     <div class="card-header">
                         <div>
                             <h3>Quick Actions</h3>
@@ -158,141 +124,568 @@
                         </div>
                     </div>
 
-                    <button onclick="openCustomerModal()">
-                        ➕ Add Customer
-                    </button>
-
-                    <button onclick="openReservationModal()">
-                        📅 New Reservation
-                    </button>
-
-                    <button onclick="showSection('tables')">
-                        🪑 View Tables
-                    </button>
-
+                    <button onclick="openCustomerModal()">➕ Add Customer</button>
+                    <button onclick="openReservationModal()">📅 New Reservation</button>
+                    <button onclick="showSection('tables')">🪑 View Tables</button>
                 </div>
 
             </div>
-
         </section>
-
 
         <!-- CUSTOMERS -->
         <section id="customers" class="section">
 
             <div class="section-header">
-
                 <div>
                     <h2>Customer Management</h2>
                     <p>Manage restaurant customer information.</p>
                 </div>
-
-                <button class="primary-btn"
-                        onclick="openCustomerModal()">
-                    + Add Customer
-                </button>
-
+                <button class="primary-btn" onclick="openCustomerModal()">+ Add Customer</button>
             </div>
 
+            <div class="customer-search-container">
+                <input
+                    type="search"
+                    id="customerSearch"
+                    placeholder="Search by customer name, phone, or email..."
+                    autocomplete="off">
+            </div>
 
             <div class="card">
-
                 <div class="table-container">
-
                     <table>
-
                         <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Phone</th>
-                            <th>Email</th>
-                            <th>Address</th>
-                            <th>Actions</th>
-                        </tr>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>Actions</th>
+                            </tr>
                         </thead>
-
-                        <tbody id="customerTableBody">
-                        </tbody>
-
+                        <tbody id="customerTableBody"></tbody>
                     </table>
-
                 </div>
-
             </div>
 
         </section>
-
 
         <!-- RESERVATIONS -->
         <section id="reservations" class="section">
 
             <div class="section-header">
-
                 <div>
                     <h2>Reservation Management</h2>
                     <p>Manage customer table reservations.</p>
                 </div>
-
-                <button class="primary-btn"
-                        onclick="openReservationModal()">
-                    + New Reservation
-                </button>
-
+                <button class="primary-btn" onclick="openReservationModal()">+ New Reservation</button>
             </div>
 
-
             <div class="card">
-
                 <div class="table-container">
-
                     <table>
-
                         <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Customer</th>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th>Guests</th>
-                            <th>Table</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
+                            <tr>
+                                <th>ID</th>
+                                <th>Customer</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Guests</th>
+                                <th>Table</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
                         </thead>
-
-                        <tbody id="reservationTableBody">
-                        </tbody>
-
+                        <tbody id="reservationTableBody"></tbody>
                     </table>
-
                 </div>
-
             </div>
 
         </section>
 
-
         <!-- RESTAURANT TABLES -->
         <section id="tables" class="section">
-
             <div class="section-header">
-
                 <div>
                     <h2>Restaurant Tables</h2>
                     <p>View restaurant table information.</p>
                 </div>
+            </div>
+            <div id="tableCards" class="table-cards"></div>
+        </section>
 
+        <!-- MENU MANAGEMENT -->
+        <section id="menu" class="section">
+
+            <div class="section-header">
+                <div>
+                    <h2>Menu Management</h2>
+                    <p>Manage restaurant menu items.</p>
+                </div>
+                <button class="primary-btn" onclick="openMenuForm()">+ Add Menu Item</button>
             </div>
 
-            <div id="tableCards" class="table-cards"></div>
+            <div class="card" id="menuFormCard" style="display:none; margin-bottom:20px;">
+                <h3 id="menuFormTitle">Add Menu Item</h3>
+
+                <form id="menuForm">
+                    <input type="hidden" id="menuItemId">
+
+                    <label for="menuName">Item Name</label>
+                    <select id="menuName" required>
+                        <option value="">Select a food item</option>
+                        <option value="Chicken Fried Rice">Chicken Fried Rice</option>
+                        <option value="Seafood Fried Rice">Seafood Fried Rice</option>
+                        <option value="Vegetable Fried Rice">Vegetable Fried Rice</option>
+                        <option value="Chicken Kottu">Chicken Kottu</option>
+                        <option value="Cheese Kottu">Cheese Kottu</option>
+                        <option value="Chicken Burger">Chicken Burger</option>
+                        <option value="Beef Burger">Beef Burger</option>
+                        <option value="Club Sandwich">Club Sandwich</option>
+                        <option value="Chicken Pizza">Chicken Pizza</option>
+                        <option value="Margherita Pizza">Margherita Pizza</option>
+                        <option value="Grilled Chicken">Grilled Chicken</option>
+                        <option value="Fish and Chips">Fish and Chips</option>
+                        <option value="Caesar Salad">Caesar Salad</option>
+                        <option value="Chocolate Brownie">Chocolate Brownie</option>
+                        <option value="Vanilla Ice Cream">Vanilla Ice Cream</option>
+                        <option value="Chocolate Ice Cream">Chocolate Ice Cream</option>
+                    </select>
+
+                    <label for="menuCategory">Category</label>
+                    <select id="menuCategory" required>
+                        <option value="">Select a category</option>
+                        <option value="Starters">Starters</option>
+                        <option value="Main Course">Main Course</option>
+                        <option value="Rice & Noodles">Rice & Noodles</option>
+                        <option value="Fast Food">Fast Food</option>
+                        <option value="Pizza">Pizza</option>
+                        <option value="Seafood">Seafood</option>
+                        <option value="Salads">Salads</option>
+                        <option value="Desserts">Desserts</option>
+                        <option value="Beverages">Beverages</option>
+                    </select>
+
+                    <label for="menuPrice">Price (LKR)</label>
+                    <input type="number" id="menuPrice" min="0.01" step="0.01" required>
+
+                    <label for="menuAvailable">Availability</label>
+                    <select id="menuAvailable">
+                        <option value="true">Available</option>
+                        <option value="false">Unavailable</option>
+                    </select>
+
+                    <div class="modal-actions">
+                        <button type="button" class="cancel-btn" onclick="closeMenuForm()">Cancel</button>
+                        <button type="submit" class="primary-btn">Save Menu Item</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Item Name</th>
+                                <th>Category</th>
+                                <th>Price (LKR)</th>
+                                <th>Availability</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="menuTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+                <!-- ORDER MANAGEMENT -->
+        <section id="orders" class="section">
+
+            <div class="section-header">
+                <div>
+                    <h2>Order Management</h2>
+                    <p>Create and manage customer orders.</p>
+                </div>
+            </div>
+
+            <div class="card" style="margin-bottom:20px;">
+                <h3>Create Order</h3>
+
+                <form id="orderForm">
+                    <label for="orderCustomer">Customer</label>
+                    <select id="orderCustomer" required>
+                        <option value="">Select Customer</option>
+                    </select>
+
+                    <label for="orderMenuItems">Select Menu Items</label>
+                    <select id="orderMenuItems" multiple size="5" required></select>
+
+                    <small style="display:block;color:#6b7280;margin-top:5px;">
+                        Hold Shift to select multiple items.
+                    </small>
+
+                    <label for="orderStatus">Order Status</label>
+                    <select id="orderStatus">
+                        <option value="PENDING">Pending</option>
+                        <option value="PREPARING">Preparing</option>
+                        <option value="READY">Ready</option>
+                        <option value="COMPLETED">Completed</option>
+                    </select>
+
+                    <div class="modal-actions">
+                        <button type="reset" class="cancel-btn">Clear</button>
+                        <button type="submit" class="primary-btn">Create Order</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>Existing Orders</h3>
+                    <button class="small-btn" onclick="loadOrders()">Refresh</button>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Menu Items</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orderTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- EMPLOYEE MANAGEMENT -->
+        <section id="employees" class="section">
+
+            <div class="section-header">
+                <div>
+                    <h2>Employee Management</h2>
+                    <p>Manage restaurant employees.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Add Employee</h3>
+
+                <form id="employeeForm">
+                    <label for="employeeName">Employee Name</label>
+                    <input type="text" id="employeeName" maxlength="100" required>
+
+                    <label for="employeePhone">Phone</label>
+                    <input type="tel" id="employeePhone" maxlength="15" required>
+
+                    <label for="employeeRole">Employee Role</label>
+                    <select id="employeeRole" required>
+                        <option value="">Select Employee Role</option>
+                        <option value="Manager">Manager</option>
+                        <option value="Cashier">Cashier</option>
+                        <option value="Chef">Chef</option>
+                        <option value="Assistant Chef">Assistant Chef</option>
+                        <option value="Waiter">Waiter</option>
+                        <option value="Waitress">Waitress</option>
+                        <option value="Kitchen Assistant">Kitchen Assistant</option>
+                        <option value="Restaurant Supervisor">Restaurant Supervisor</option>
+                        <option value="Receptionist">Receptionist</option>
+                        <option value="Cleaner">Cleaner</option>
+                    </select>
+
+                    <label for="employeeEmail">Email</label>
+                    <input type="email" id="employeeEmail" maxlength="100">
+
+                    <button type="submit" class="primary-btn">Add Employee</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h3>Employees</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Role</th>
+                                <th>Email</th>
+                                <th>Hire Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="employeeTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- SUPPLIER MANAGEMENT -->
+        <section id="suppliers" class="section">
+
+            <div class="section-header">
+                <div>
+                    <h2>Supplier Management</h2>
+                    <p>Manage restaurant suppliers.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Add Supplier</h3>
+
+                <form id="supplierForm">
+                    <label for="supplierName">Supplier Name</label>
+                    <input type="text" id="supplierName" maxlength="120" required>
+
+                    <label for="supplierPhone">Phone</label>
+                    <input type="tel" id="supplierPhone" maxlength="15" required>
+
+                    <label for="supplierEmail">Email</label>
+                    <input type="email" id="supplierEmail" maxlength="100">
+
+                    <label for="supplierAddress">Address</label>
+                    <input type="text" id="supplierAddress" maxlength="255" required>
+
+                    <button type="submit" class="primary-btn">Add Supplier</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h3>Suppliers</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="supplierTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- INVENTORY MANAGEMENT -->
+        <section id="inventory" class="section">
+
+            <div class="section-header">
+                <div>
+                    <h2>Inventory Management</h2>
+                    <p>Track stock quantities and reorder levels.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Add Inventory Item</h3>
+
+                <form id="inventoryForm">
+                    <label for="inventoryItemName">Item Name</label>
+                    <input type="text" id="inventoryItemName" maxlength="100" required>
+
+                    <label for="inventoryQuantity">Quantity</label>
+                    <input type="number" id="inventoryQuantity" min="0" step="0.01" required>
+
+                    <label for="inventoryUnit">Unit</label>
+                    <input type="text" id="inventoryUnit" maxlength="20"
+                           placeholder="kg, litres, pieces..." required>
+
+                    <label for="inventoryReorderLevel">Reorder Level</label>
+                    <input type="number" id="inventoryReorderLevel" min="0" step="0.01" required>
+
+                    <label for="inventorySupplier">Supplier</label>
+                    <select id="inventorySupplier">
+                        <option value="">Select Supplier</option>
+                    </select>
+
+                    <button type="submit" class="primary-btn">Add Inventory Item</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h3>Inventory Items</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Item</th>
+                                <th>Quantity</th>
+                                <th>Unit</th>
+                                <th>Reorder Level</th>
+                                <th>Supplier</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="inventoryTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- BILLING MANAGEMENT -->
+        <section id="billing" class="section">
+
+            <div class="section-header">
+                <div>
+                    <h2>Billing Management</h2>
+                    <p>Create and manage restaurant bills.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Create Bill</h3>
+
+                <form id="billForm">
+                    <label for="billOrderId">Order ID</label>
+                    <select id="billOrderId" required>
+                        <option value="">Select a completed order</option>
+                    </select>
+
+                    <label for="billSubtotal">Subtotal (LKR)</label>
+                    <input type="number" id="billSubtotal" min="0" step="0.01"
+                           value="0" readonly required>
+
+                    <label for="billTax">Tax (LKR)</label>
+                    <input type="number" id="billTax" min="0" step="0.01"
+                           value="0" required>
+
+                    <label for="billDiscount">Discount (LKR)</label>
+                    <input type="number" id="billDiscount" min="0" step="0.01"
+                           value="0" required>
+
+                    <p style="margin:12px 0;font-weight:600;">
+                        Total: <span id="billTotalPreview">Rs. 0.00</span>
+                    </p>
+
+                    <button type="submit" class="primary-btn">Create Bill</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h3>Existing Bills</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Bill ID</th>
+                                <th>Order ID</th>
+                                <th>Date</th>
+                                <th>Subtotal</th>
+                                <th>Tax</th>
+                                <th>Discount</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="billTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+                <!-- PAYMENT MANAGEMENT -->
+        <section id="payments" class="section">
+
+            <div class="section-header">
+                <div>
+                    <h2>Payment Management</h2>
+                    <p>Record and manage customer payments.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Record Payment</h3>
+
+                <form id="paymentForm">
+
+                    <label for="paymentBillId">Unpaid Bill</label>
+                    <select id="paymentBillId" required>
+                        <option value="">Select an unpaid bill</option>
+                    </select>
+
+                    <label for="paymentAmount">Amount Applied to Bill (LKR)</label>
+                    <input type="number" id="paymentAmount"
+                           min="0.01" step="0.01" required>
+
+                    <div id="cashReceivedGroup">
+                        <label for="paymentCashReceived">Cash Received (LKR)</label>
+                        <input type="number" id="paymentCashReceived"
+                               min="0.01" step="0.01" value="0" required>
+                    </div>
+
+                    <p style="margin:10px 0;">
+                        Change to Return:
+                        <strong id="paymentChangePreview">Rs. 0.00</strong>
+                    </p>
+
+                    <p style="margin:10px 0;">
+                        Remaining Bill Balance:
+                        <strong id="paymentBalancePreview">Rs. 0.00</strong>
+                    </p>
+
+                    <label for="paymentMethod">Payment Method</label>
+                    <select id="paymentMethod" required>
+                        <option value="CASH">Cash</option>
+                        <option value="CARD">Card</option>
+                        <option value="BANK_TRANSFER">Bank Transfer</option>
+                    </select>
+
+                    <input type="hidden" id="paymentStatus" value="COMPLETED">
+
+                    <label for="paymentTransactionRef">Transaction Reference</label>
+                    <input type="text" id="paymentTransactionRef" maxlength="100">
+
+                    <button type="submit" class="primary-btn">Record Payment</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h3>Existing Payments</h3>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Payment ID</th>
+                                <th>Bill ID</th>
+                                <th>Date</th>
+                                <th>Amount Applied</th>
+                                <th>Cash Received</th>
+                                <th>Change Returned</th>
+                                <th>Method</th>
+                                <th>Status</th>
+                                <th>Reference</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="paymentTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
 
         </section>
 
     </main>
-
 </div>
-
 
 <!-- CUSTOMER MODAL -->
 <div id="customerModal" class="modal">
@@ -300,133 +693,64 @@
     <div class="modal-content">
 
         <div class="modal-header">
-
             <div>
                 <h2 id="customerModalTitle">Add Customer</h2>
                 <p>Enter customer information.</p>
             </div>
 
-            <button type="button"
-                    class="close-btn"
-                    onclick="closeCustomerModal()">
-                ×
-            </button>
-
+            <button type="button" class="close-btn"
+                    onclick="closeCustomerModal()">×</button>
         </div>
 
-
-        <!-- CUSTOMER FORM WITH VALIDATION -->
         <form id="customerForm" novalidate>
 
             <input type="hidden" id="customerId">
 
-
-            <!-- NAME -->
             <label for="customerName">Name</label>
+            <input type="text" id="customerName" name="customerName"
+                   placeholder="Enter customer name" minlength="2"
+                   maxlength="100" autocomplete="name" required
+                   aria-describedby="customerNameError">
 
-            <input
-                type="text"
-                id="customerName"
-                name="customerName"
-                placeholder="Enter customer name"
-                minlength="2"
-                maxlength="100"
-                autocomplete="name"
-                required
-                aria-describedby="customerNameError"
-            >
+            <small class="field-error" id="customerNameError"
+                   aria-live="polite"></small>
 
-            <small
-                class="field-error"
-                id="customerNameError"
-                aria-live="polite">
-            </small>
-
-
-            <!-- PHONE -->
             <label for="customerPhone">Phone</label>
+            <input type="tel" id="customerPhone" name="customerPhone"
+                   placeholder="Enter phone number" maxlength="20"
+                   autocomplete="tel" required
+                   aria-describedby="customerPhoneError">
 
-            <input
-                type="tel"
-                id="customerPhone"
-                name="customerPhone"
-                placeholder="Enter phone number"
-                maxlength="20"
-                autocomplete="tel"
-                required
-                aria-describedby="customerPhoneError"
-            >
+            <small class="field-error" id="customerPhoneError"
+                   aria-live="polite"></small>
 
-            <small
-                class="field-error"
-                id="customerPhoneError"
-                aria-live="polite">
-            </small>
-
-
-            <!-- EMAIL -->
             <label for="customerEmail">Email</label>
+            <input type="email" id="customerEmail" name="customerEmail"
+                   placeholder="Enter email" maxlength="254"
+                   autocomplete="email"
+                   aria-describedby="customerEmailError">
 
-            <input
-                type="email"
-                id="customerEmail"
-                name="customerEmail"
-                placeholder="Enter email"
-                maxlength="254"
-                autocomplete="email"
-                aria-describedby="customerEmailError"
-            >
+            <small class="field-error" id="customerEmailError"
+                   aria-live="polite"></small>
 
-            <small
-                class="field-error"
-                id="customerEmailError"
-                aria-live="polite">
-            </small>
-
-
-            <!-- ADDRESS -->
             <label for="customerAddress">Address</label>
+            <textarea id="customerAddress" name="customerAddress"
+                      placeholder="Enter address" maxlength="250"
+                      autocomplete="street-address"
+                      aria-describedby="customerAddressError"></textarea>
 
-            <textarea
-                id="customerAddress"
-                name="customerAddress"
-                placeholder="Enter address"
-                maxlength="250"
-                autocomplete="street-address"
-                aria-describedby="customerAddressError"
-            ></textarea>
+            <small class="field-error" id="customerAddressError"
+                   aria-live="polite"></small>
 
-            <small
-                class="field-error"
-                id="customerAddressError"
-                aria-live="polite">
-            </small>
-
-
-            <!-- BUTTONS -->
             <div class="modal-actions">
-
-                <button
-                    type="button"
-                    class="cancel-btn"
-                    onclick="closeCustomerModal()">
-                    Cancel
-                </button>
-
-                <button
-                    type="submit"
-                    class="primary-btn">
-                    Save Customer
-                </button>
-
+                <button type="button" class="cancel-btn"
+                        onclick="closeCustomerModal()">Cancel</button>
+                <button type="submit" class="primary-btn">Save Customer</button>
             </div>
 
         </form>
-
     </div>
-
 </div>
-
 
 <!-- RESERVATION MODAL -->
 <div id="reservationModal" class="modal">
@@ -434,110 +758,58 @@
     <div class="modal-content">
 
         <div class="modal-header">
-
             <div>
-                <h2 id="reservationModalTitle">
-                    New Reservation
-                </h2>
-
+                <h2 id="reservationModalTitle">New Reservation</h2>
                 <p>Enter reservation details.</p>
             </div>
 
-            <button type="button"
-                    class="close-btn"
-                    onclick="closeReservationModal()">
-                ×
-            </button>
-
+            <button type="button" class="close-btn"
+                    onclick="closeReservationModal()">×</button>
         </div>
-
 
         <form id="reservationForm">
 
             <input type="hidden" id="reservationId">
 
-
             <label for="reservationCustomer">Customer</label>
-
             <select id="reservationCustomer" required>
                 <option value="">Select customer</option>
             </select>
 
-
             <label for="reservationTable">Restaurant Table</label>
-
             <select id="reservationTable" required>
                 <option value="">Select table</option>
             </select>
 
-
             <label for="reservationDate">Date</label>
-
-            <input
-                type="date"
-                id="reservationDate"
-                required
-            >
-
+            <input type="date" id="reservationDate" required>
 
             <label for="reservationTime">Time</label>
-
-            <input
-                type="time"
-                id="reservationTime"
-                required
-            >
-
+            <input type="time" id="reservationTime" required>
 
             <label for="reservationGuests">Number of Guests</label>
-
-            <input
-                type="number"
-                id="reservationGuests"
-                min="1"
-                required
-            >
-
+            <input type="number" id="reservationGuests" min="1" required>
 
             <label for="reservationStatus">Status</label>
-
             <select id="reservationStatus">
-
                 <option value="Pending">Pending</option>
                 <option value="Confirmed">Confirmed</option>
                 <option value="Completed">Completed</option>
                 <option value="Cancelled">Cancelled</option>
-
             </select>
 
-
             <div class="modal-actions">
-
-                <button
-                    type="button"
-                    class="cancel-btn"
-                    onclick="closeReservationModal()">
-                    Cancel
-                </button>
-
-                <button
-                    type="submit"
-                    class="primary-btn">
-                    Save Reservation
-                </button>
-
+                <button type="button" class="cancel-btn"
+                        onclick="closeReservationModal()">Cancel</button>
+                <button type="submit" class="primary-btn">Save Reservation</button>
             </div>
 
         </form>
-
     </div>
-
 </div>
-
 
 <!-- NOTIFICATION -->
 <div id="notification" class="notification"></div>
-
 
 <!-- JAVASCRIPT -->
 <script src="app.js"></script>
