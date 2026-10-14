@@ -25,9 +25,7 @@ public class InventoryApplication {
     }
 }
 
-// ============================================================================
 // ENTITIES
-// ============================================================================
 
 @Entity
 @Table(name = "Employee")
@@ -145,9 +143,8 @@ class Inventory {
     public BigDecimal getReorderLevel() { return reorderLevel; }
     public void setReorderLevel(BigDecimal reorderLevel) { this.reorderLevel = reorderLevel; }
 }
-// ============================================================================
+
 // REPOSITORIES
-// ============================================================================
 
 @Repository
 interface EmployeeRepository extends JpaRepository<Employee, Integer> {}
@@ -158,9 +155,7 @@ interface SupplierRepository extends JpaRepository<Supplier, Integer> {}
 @Repository
 interface InventoryRepository extends JpaRepository<Inventory, Integer> {}
 
-// ============================================================================
 // CONTROLLER (Full CRUD with Add & Delete)
-// ============================================================================
 
 @RestController
 @RequestMapping("/api")
@@ -178,7 +173,7 @@ class SmartDineController {
         this.employeeRepo = employeeRepo;
     }
 
-    // --- Inventory ---
+    //Inventory
     @GetMapping("/inventory")
     public List<Inventory> getInventory() { return inventoryRepo.findAll(); }
 
@@ -219,7 +214,7 @@ class SmartDineController {
         return ResponseEntity.ok().build();
     }
 
-    // --- Suppliers ---
+    //Suppliers
     @GetMapping("/suppliers")
     public List<Supplier> getSuppliers() { return supplierRepo.findAll(); }
 
@@ -232,7 +227,7 @@ class SmartDineController {
         return ResponseEntity.ok().build();
     }
 
-    // --- Employees ---
+    //Employees
     @GetMapping("/employees")
     public List<Employee> getEmployees() { return employeeRepo.findAll(); }
 
